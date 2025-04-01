@@ -49,7 +49,7 @@ events.on('card:select', (item: IProductItem) => { dataModel.setPreview(item) })
 /********** Открываем модальное окно карточки товара **********/
 events.on('modalCard:open', (item: IProductItem) => {
   const cardPreview = new CardPreview(cardPreviewTemplate, events)
-  modal.content = cardPreview.render(item);
+  modal.content = cardPreview.render(item, basketModel.basketProducts);
   modal.render();
 });
 
@@ -93,7 +93,10 @@ events.on('order:open', () => {
   formModel.items = basketModel.basketProducts.map(item => item.id); // передаём список id товаров которые покупаем
 });
 
-events.on('order:paymentSelection', (button: HTMLButtonElement) => { formModel.payment = button.name }) // передаём способ оплаты
+events.on('order:paymentSelection', (button: HTMLButtonElement) => {
+  formModel.payment = button.name;
+  formModel.validateOrder();
+});
 
 /********** Отслеживаем изменение в поле в вода "адреса доставки" **********/
 events.on(`order:changeAddress`, (data: { field: string, value: string }) => {

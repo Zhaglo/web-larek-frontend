@@ -40,7 +40,9 @@ export class BasketModel implements IBasketModel {
 
   // добавить карточку товара в корзину
   setSelectedСard(data: IProductItem) {
-    this._basketProducts.push(data);
+    if (!this._basketProducts.some(item => item.id === data.id)) {
+      this._basketProducts.push(data);
+    }
   }
 
   // удалить карточку товара из корзины

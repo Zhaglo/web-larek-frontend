@@ -28,7 +28,7 @@ export class CardPreview extends Card implements ICard {
     }
   }
 
-  render(data: IProductItem): HTMLElement {
+  render(data: IProductItem, basketItems: IProductItem[] = []): HTMLElement {
     this._cardCategory.textContent = data.category;
     this.cardCategory = data.category;
     this._cardTitle.textContent = data.title;
@@ -36,7 +36,19 @@ export class CardPreview extends Card implements ICard {
     this._cardImage.alt = this._cardTitle.textContent;
     this._cardPrice.textContent = this.setPrice(data.price);
     this.text.textContent = data.description;
-    this.button.textContent = this.notSale(data);
+
+    const inBasket = basketItems.some(item => item.id === data.id);
+
+    if (!data.price) {
+      this.button.textContent = 'Не продается';
+      this.button.setAttribute('disabled', 'true');
+    } else if (inBasket) {
+      this.button.textContent = 'Уже в корзине';
+      this.button.setAttribute('disabled', 'true');
+    } else {
+      this.button.textContent = 'Купить';
+      this.button.removeAttribute('disabled');
+    }
     return this._cardElement;
   }
 }

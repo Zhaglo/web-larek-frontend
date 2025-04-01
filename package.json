@@ -33,6 +33,7 @@
     "webpack-dev-server": "^4.13.3"
   },
   "description": "My webpack project",
+  "homepage": "https://Zhaglo.github.io/web-larek-frontend",
   "scripts": {
     "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
@@ -42,6 +43,6 @@
     "lint": "eslint --ext .js,.ts ./src",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier ./src --write",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist"
   }
 }

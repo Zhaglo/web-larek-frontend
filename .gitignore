@@ -1,8 +1,0 @@
-node_modules
-dist
-source
-.yarn
-.idea
-.vscode
-*.log
-desktop.ini
